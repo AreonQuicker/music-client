@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const rotate = keyframes`
@@ -30,6 +30,7 @@ const MusicCardStyle = styled.div`
 `;
 
 function MusicCard() {
+  useEffect(() => {}, []);
   return (
     <MusicCardStyle>
       <div className="middle">
