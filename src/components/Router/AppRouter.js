@@ -8,14 +8,12 @@ import CreateSong from '../../views/CreateSong/CreateSong';
 export const history = createHistory();
 
 const AppRouter = () => (
-  <Router history={history}>
-    <div>
-      <Switch>
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/create-song" component={CreateSong} />
-      </Switch>
-    </div>
-  </Router>
+  <div>
+    <Switch>
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/create-song" component={CreateSong} />
+    </Switch>
+  </div>
 );
 
 export default AppRouter;

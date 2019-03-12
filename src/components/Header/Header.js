@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 const HeaderStyle = styled.div`
@@ -16,7 +17,17 @@ const HeaderStyle = styled.div`
 function Header() {
   return (
     <HeaderStyle>
-      <img src="./images/logo3.png" />
+      <React.Fragment>
+        <img src="./images/logo3.png" />
+        <div style={{ marginLeft: '100px' }}>
+          <NavLink to="/dashboard" exact>
+            DashBoard
+          </NavLink>
+          <NavLink to="/create-song" exact>
+            create song
+          </NavLink>
+        </div>
+      </React.Fragment>
     </HeaderStyle>
   );
 }

@@ -2,7 +2,8 @@ import gql from 'graphql-tag';
 
 export const GET_ALL_SONGS = gql`
   {
-    songs {
+    songs2 {
+      id
       name
       downloadPath
     }

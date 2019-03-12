@@ -4,13 +4,14 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
+import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 
 import './Main.css';
 import gql from 'graphql-tag';
 import App from '../views/App/App';
 import Dashboard from '../views/Dashboard/Dashboard';
 import Header from '../components/Header/Header';
-import AppRouter from '../components/Router/AppRouter';
+import AppRouter, { history } from '../components/Router/AppRouter';
 import SongsContext from '../context/SongsContext';
 import songsReducer, { songsInitialState } from '../reducers/songsReducer';
 import client from '../client/client';
@@ -38,10 +39,14 @@ function Main() {
         <MuiThemeProvider theme={theme}>
           <ApolloProvider client={client}>
             <SongsContext.Provider value={{ state, dispatch }}>
-              <Header />
-              <BodyStyle>
-                <AppRouter />
-              </BodyStyle>
+              <Router history={history}>
+                <React.Fragment>
+                  <Header />
+                  <BodyStyle>
+                    <AppRouter />
+                  </BodyStyle>
+                </React.Fragment>
+              </Router>
             </SongsContext.Provider>
           </ApolloProvider>
         </MuiThemeProvider>

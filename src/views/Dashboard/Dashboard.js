@@ -1,18 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Query } from 'react-apollo';
 import MusicGrid from '../../components/MusicGrid';
 import MusicCard from '../../components/MusicCard';
-import SongsContext from '../../context/SongsContext';
 
+import useConnect from '../../hooks/useConnect';
 import { GET_ALL_SONGS } from '../../gqlTags/songsQueries';
-
-import useAPI from '../../hooks/useAPI';
+import { setSongs } from '../../actions/songsActions';
 
 function Dashboard() {
-  const [state, error] = useAPI(GET_ALL_SONGS);
-  console.log(error);
+  const {
+    state: songsSate,
+    action: songsAction,
+    loading: songsLoading,
+    eror: songsError,
+  } = useConnect(GET_ALL_SONGS, {}, setSongs, 'songs2');
+
+  useEffect(() => {
+    songsAction();
+  }, []);
+
   return (
     <MusicGrid>
-      <MusicCard />
+      {songsSate.songs.map(m => (
+        <MusicCard key={m.id} />
+      ))}
     </MusicGrid>
   );
 }

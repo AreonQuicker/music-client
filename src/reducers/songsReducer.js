@@ -1,10 +1,13 @@
-export const songsInitialState = {};
+export const songsInitialState = {
+  songs: [],
+};
 
-function songsReducer(state, action) {
-  switch (action.type) {
-    case 'add':
+function songsReducer(state, { type, payload }) {
+  switch (type) {
+    case 'SET_SONGS':
       return {
-        value: 'MEE',
+        ...state,
+        songs: payload,
       };
     default:
       return state;
