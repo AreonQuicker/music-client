@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
-export const MusicGridStyle = styled.div`
+export const SongControlsStyle = styled.div`
   display: grid;
-  width: 100%;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(
-      ${props => props.theme.musicCardWidth},
-      ${props => props.theme.musicCardWidth}
-    )
-  );
-  grid-gap: 10px;
-  grid-auto-rows: ${props => props.theme.musicCardHeight};
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  .middle {
+    i {
+      font-size: 30px;
+      cursor: pointer;
+      color: #4c4c4c;
+    }
+  }
 `;

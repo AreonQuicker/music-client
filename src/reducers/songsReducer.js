@@ -9,9 +9,13 @@ function songsReducer(state, { type, payload }) {
         ...state,
         songs: payload,
       };
+    case 'ADD_SONG':
+      return {
+        ...state,
+        songs: [...state.songs, payload],
+      };
     default:
       return state;
   }
 }
-
 export default songsReducer;

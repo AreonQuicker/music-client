@@ -1,5 +1,5 @@
 import React, { Children, useEffect } from 'react';
-import { MusicGridStyle } from './styles';
+import { MusicGridStyle } from './styles/gridStyles';
 
 function MusicGrid({ children }) {
   useEffect(() => {}, []);

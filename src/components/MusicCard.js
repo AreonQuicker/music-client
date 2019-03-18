@@ -1,44 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
+import CurrentSongContext from '../context/CurrentSongContext';
+import useSongStatus from '../hooks/useSongStatus';
+import {
+  setCurrentSong,
+  setCurrentSongStatus,
+} from '../actions/currentSongActions';
+import { MusicCardStyle } from './styles/cardStyles';
 
-  to {
-    transform: rotate(360deg);
-  }
-`;
+const MusicCard = React.memo(({ song }) => {
+  const {
+    currentSongState: { song: currentSong, status: currentSongStatus },
+    currentSongDispatch,
+  } = useContext(CurrentSongContext);
+  const { isPlaying, isPause, isStop, isSelectedSong } = useSongStatus(
+    currentSong,
+    currentSongStatus,
+    song
+  );
 
-const MusicCardStyle = styled.div`
-  display: grid;
-  grid-template-rows: 100px 20px;
-  img {
-    animation: ${rotate} 2s linear infinite;
-    height: 100%;
-    width: 100%;
-  }
-  .bottom {
-    font-family: monospace;
-    font-weight: bold;
-    color: #ed2530;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-  }
-`;
+  useEffect(() => {}, [song]);
 
-function MusicCard() {
-  useEffect(() => {}, []);
+  const handleSongClick = () => {
+    if (isSelectedSong && isPlaying)
+      currentSongDispatch(setCurrentSongStatus('PAUSED'));
+    else if (isSelectedSong && (isPause || isStop))
+      currentSongDispatch(setCurrentSongStatus('PLAYING'));
+    else {
+      currentSongDispatch(setCurrentSong(song));
+      currentSongDispatch(setCurrentSongStatus('PLAYING'));
+    }
+  };
+
   return (
-    <MusicCardStyle>
+    <MusicCardStyle spin={false} onClick={handleSongClick}>
       <div className="middle">
-        <img src="./images/record.png" />
+        <img src="./images/record3.png" />
       </div>
-      <div className="bottom">Song Name</div>
+      <div className="bottom">{song.name}</div>
     </MusicCardStyle>
   );
-}
+});
 
 export default MusicCard;
