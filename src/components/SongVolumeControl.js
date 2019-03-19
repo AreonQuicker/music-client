@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import InputRange from 'react-input-range';
+
+import CurrentSongContext from '../context/CurrentSongContext';
+import { setCurrentSongVolume } from '../actions/currentSongActions';
 
 const SongVolumeControlStyle = styled.div`
   display: grid;
@@ -8,7 +11,19 @@ const SongVolumeControlStyle = styled.div`
   grid-template-rows: 1fr;
 `;
 
-function SongVolumeControl({ volume, handleVolumeOnChange }) {
+// eslint-disable-next-line react/display-name
+const SongVolumeControl = React.memo(() => {
+  const {
+    currentSongState: { volume },
+    currentSongDispatch,
+  } = useContext(CurrentSongContext);
+
+  function handleVolumeOnChange(value) {
+    currentSongDispatch(setCurrentSongVolume(value));
+  }
+
+  useEffect(() => {}, []);
+
   return (
     <SongVolumeControlStyle>
       <InputRange
@@ -20,6 +35,6 @@ function SongVolumeControl({ volume, handleVolumeOnChange }) {
       />
     </SongVolumeControlStyle>
   );
-}
+});
 
 export default SongVolumeControl;

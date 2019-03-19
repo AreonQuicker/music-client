@@ -1,9 +1,7 @@
 import firebase from 'firebase';
 // import 'firebase/storage';
 
-const config = {
-
-};
+const config = {};
 firebase.initializeApp(config);
 
 const firebaseStorage = firebase.storage();

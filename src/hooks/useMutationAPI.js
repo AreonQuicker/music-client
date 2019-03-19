@@ -5,6 +5,7 @@ const useMutationAPI = qql => {
   const [state, setState] = useState(null);
   const [errorState, setErrorState] = useState(null);
   const [loadingState, setLoading] = useState(false);
+
   const action = useRef(async variables => {
     setLoading(true);
     try {
@@ -17,7 +18,7 @@ const useMutationAPI = qql => {
       setLoading(false);
       throw new Error(error);
     }
-  });
+  }, []);
 
   return { state, action: action.current, errorState, loadingState };
 };

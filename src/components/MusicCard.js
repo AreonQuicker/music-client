@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 
 import CurrentSongContext from '../context/CurrentSongContext';
 import useSongStatus from '../hooks/useSongStatus';
@@ -8,6 +8,7 @@ import {
 } from '../actions/currentSongActions';
 import { MusicCardStyle } from './styles/cardStyles';
 
+// eslint-disable-next-line react/display-name
 const MusicCard = React.memo(({ song }) => {
   const {
     currentSongState: { song: currentSong, status: currentSongStatus },
@@ -19,9 +20,9 @@ const MusicCard = React.memo(({ song }) => {
     song
   );
 
-  useEffect(() => {}, [song]);
+  useEffect(() => {}, []);
 
-  const handleSongClick = () => {
+  const handleSongClick = useCallback(() => {
     if (isSelectedSong && isPlaying)
       currentSongDispatch(setCurrentSongStatus('PAUSED'));
     else if (isSelectedSong && (isPause || isStop))
@@ -30,7 +31,7 @@ const MusicCard = React.memo(({ song }) => {
       currentSongDispatch(setCurrentSong(song));
       currentSongDispatch(setCurrentSongStatus('PLAYING'));
     }
-  };
+  }, [currentSongDispatch, isPause, isPlaying, isSelectedSong, isStop, song]);
 
   return (
     <MusicCardStyle spin={false} onClick={handleSongClick}>

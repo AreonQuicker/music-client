@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback, useMemo } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import InputRange from 'react-input-range';
 
@@ -23,40 +23,21 @@ function Header() {
     currentSongState: { progress, song, status, volume },
     currentSongDispatch,
   } = useContext(CurrentSongContext);
-  const { isPlaying, hasSong, songName } = useSongStatus(song, status);
+  const { songName } = useSongStatus(song, status);
 
-  const handleProgressOnChange = value => {
+  function handleProgressOnChange(value) {
     currentSongDispatch(setCurrentSongProgress(value));
-  };
-
-  const handleVolumeOnChange = value => {
-    currentSongDispatch(setCurrentSongVolume(value));
-  };
-
-  const handlePauseClick = () => {
-    if (isPlaying) currentSongDispatch(setCurrentSongStatus('PAUSED'));
-  };
-
-  const handlePlayClick = () => {
-    if (hasSong) currentSongDispatch(setCurrentSongStatus('PLAYING'));
-  };
+  }
 
   return (
     <HeaderStyle>
       <div className="top">
         <HeaderLeftStlye>
           <div className="left">
-            <SongControls
-              isPlaying={isPlaying}
-              handlePlayClick={handlePlayClick}
-              handlePauseClick={handlePauseClick}
-            />
+            <SongControls />
           </div>
           <div className="right">
-            <SongVolumeControlStyle
-              handleVolumeOnChange={handleVolumeOnChange}
-              volume={volume}
-            />
+            <SongVolumeControlStyle />
           </div>
         </HeaderLeftStlye>
         <HeaderMiddleStyle>

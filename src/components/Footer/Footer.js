@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useCallback } from 'react';
 import Sound from 'react-sound';
 import CurrentSongContext from '../../context/CurrentSongContext';
 
@@ -24,39 +24,28 @@ function Footer() {
   } = useContext(CurrentSongContext);
 
   useEffect(() => {}, []);
-  const { hasSong, isPlaying, isPause, isStop } = useSongStatus(song, status);
+
+  const { hasSong } = useSongStatus(song, status);
   const playStatus = getPlayStatus(status);
 
-  const handleSongOnFinishedPlaying = () => {
+  const handleSongOnFinishedPlaying = useCallback(() => {
     currentSongDispatch(setCurrentSongStatus('STOPPED'));
     currentSongDispatch(setCurrentSongProgress(0));
-  };
+  }, [currentSongDispatch]);
 
-  const handleSongOnPlaying = e => {
+  function handleSongOnPlaying(e) {
     const { position: p } = e;
     currentSongDispatch(setCurrentSongPosition(p));
-  };
+  }
 
-  const handleSongOnLoad = e => {
+  function handleSongOnLoad(e) {
     const { duration } = e;
     currentSongDispatch(setCurrentSongDuration(duration));
-  };
-
-  const handlePauseClick = () => {
-    if (isPlaying) currentSongDispatch(setCurrentSongStatus('PAUSED'));
-  };
-
-  const handlePlayClick = () => {
-    if (hasSong) currentSongDispatch(setCurrentSongStatus('PLAYING'));
-  };
+  }
 
   return (
     <FooterStyle>
-      <SongControls
-        isPlaying={isPlaying}
-        handlePlayClick={handlePlayClick}
-        handlePauseClick={handlePauseClick}
-      />
+      <SongControls />
       <Sound
         url={hasSong ? song.downloadPath : ''}
         playStatus={playStatus}

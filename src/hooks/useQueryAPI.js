@@ -5,6 +5,7 @@ const useQueryAPI = (qql, variables, initAction = true) => {
   const [state, setState] = useState(null);
   const [errorState, setErrorState] = useState(null);
   const [loadingState, setLoading] = useState(true);
+
   const action = useRef(async aVariables => {
     setLoading(true);
     API.query(qql, aVariables)
@@ -16,7 +17,7 @@ const useQueryAPI = (qql, variables, initAction = true) => {
         setErrorState(error);
         setLoading(false);
       });
-  });
+  }, []);
 
   useEffect(() => {
     if (initAction) {

@@ -4,11 +4,12 @@ import { firebaseStorage, firebase } from '../fireBase/fireBase';
 const storageRef = firebaseStorage.ref();
 
 function UseFireBaseStorage() {
-  useEffect(() => {}, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [progress, setProgess] = useState(0);
   const [downloadUrl, setDownloadUrl] = useState(0);
+
+  useEffect(() => {}, []);
 
   const upload = useRef(async file => {
     const childRef = storageRef.child(file.name);
@@ -34,7 +35,7 @@ function UseFireBaseStorage() {
         }
       );
     });
-  });
+  }, []);
 
   return { upload: upload.current, error, loading, progress, downloadUrl };
 }

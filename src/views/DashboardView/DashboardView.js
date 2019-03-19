@@ -4,7 +4,7 @@ import MusicCard from '../../components/MusicCard';
 
 import SongsContext from '../../context/SongsContext';
 
-function Dashboard() {
+function DashboardView() {
   const { songsState } = useContext(SongsContext);
   useEffect(() => {}, []);
   return (
@@ -16,4 +16,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardView;
