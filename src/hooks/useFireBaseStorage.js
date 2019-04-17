@@ -15,7 +15,7 @@ function UseFireBaseStorage() {
     const childRef = storageRef.child(file.name);
     setLoading(true);
     const uploadTask = childRef.put(file);
-    return new Promise((res, error) => {
+    return new Promise((res, err) => {
       uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         function(snapshot) {
@@ -25,7 +25,7 @@ function UseFireBaseStorage() {
         function(error) {
           setLoading(false);
           setError(error);
-          error(error);
+          err(error);
         },
         async function() {
           const d = await uploadTask.snapshot.ref.getDownloadURL();

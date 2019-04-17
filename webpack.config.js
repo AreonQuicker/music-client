@@ -5,7 +5,7 @@ module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.join(__dirname, 'public', 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -13,12 +13,12 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader'
+        },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
       },
       // {
       //   test: /\.html$/,
@@ -28,7 +28,7 @@ module.exports = {
       //     }
       //   ]
       // }
-    ]
+    ],
   },
   plugins: [
     // new HtmlWebPackPlugin({
@@ -39,6 +39,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    publicPath: '/dist/'
-  }
+    publicPath: '/dist/',
+  },
 };
